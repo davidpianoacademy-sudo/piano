@@ -1,0 +1,23 @@
+piano/
+├── app/
+│   ├── page.tsx              → Landing page (design que tu m'enverras)
+│   ├── login/
+│   │   └── page.tsx          → Connexion (étudiant + admin)
+│   ├── signup/
+│   │   └── page.tsx          → Inscription étudiant
+│   ├── dashboard/
+│   │   └── page.tsx          → Espace étudiant (cours en vidéo)
+│   └── admin/
+│       ├── page.tsx          → Dashboard admin
+│       ├── courses/
+│       │   └── page.tsx      → Gestion des cours (ajouter/supprimer)
+│       └── students/
+│           └── page.tsx      → Gestion des étudiants
+├── lib/
+│   └── supabase/
+│       ├── client.ts
+│       └── server.ts
+├── .env.local
+└── ...
+
+qcAZL7j3oN5IN7dM 

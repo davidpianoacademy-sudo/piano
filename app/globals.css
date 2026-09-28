@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* ---------- Polices injectées par next/font dans layout.tsx ---------- */
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-script: var(--font-dancing);
+
+  /* ---------- Navy ---------- */
+  --color-navy: #0A0E27;
+  --color-navy-deep: #060A1C;
+  --color-navy-soft: #141A38;
+
+  /* ---------- Or ---------- */
+  --color-gold: #F5B942;
+  --color-gold-soft: #E8B84B;
+  --color-gold-deep: #C99A2E;
+
+  /* ---------- Violet ---------- */
+  --color-purple: #7B2CBF;
+  --color-purple-light: #9D4EDD;
+  --color-purple-soft: #C77DDB;
+  --color-purple-deep: #5B21B6;
+
+  /* ---------- Fonds clairs & séparateurs ---------- */
+  --color-lavender: #F5F3FA;
+  --color-lilac: #EDE7F6;
+  --color-line: #E0DAF0;
+
+  /* ---------- Textes ---------- */
+  --color-ink: #0A0E27;
+  --color-ink-soft: #4A5568;
+  --color-ink-mute: #8A8A8A;
+}
+
+/* ---------- Base ---------- */
+:root {
+  --background: #ffffff;
+  --foreground: #0A0E27;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Utilitaires custom ---------- */
+
+.serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.script {
+  font-family: var(--font-script), cursive;
+}
+
+::selection {
+  background: #F5B942;
+  color: #0A0E27;
+}
+
+/* Animation douce de flottement (logo piano) */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Apparition douce au scroll */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+/* Grain doré subtil (décor) */
+.bg-grain {
+  background-image: radial-gradient(rgba(245, 185, 66, 0.10) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ============================================================
+   🔒 CORRECTIF — Champs de formulaire toujours lisibles
+   ============================================================ */
+input,
+textarea,
+select {
+  color: #0A0E27 !important;
+  background-color: #ffffff !important;
+  caret-color: #0A0E27;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Labels & textes de formulaire */
+label {
+  color: #0A0E27;
+}
+
+/* Checkbox : coche visible */
+input[type="checkbox"] {
+  accent-color: #7B2CBF;
+}
+
+/* Bouton de secours si un parent lui donne du blanc */
+button {
+  color: inherit;
+}
+button[type="submit"] {
+  color: #ffffff;
+}
+
+/* ============================================================
+   🔒 Admin — Section « Gestion des cours » & « Gestion des étudiants »
+   Force le texte en sombre, uniquement dans ces deux cartes.
+   ============================================================ */
+.admin-panel,
+.admin-panel h1,
+.admin-panel h2,
+.admin-panel h3,
+.admin-panel h4,
+.admin-panel h5,
+.admin-panel h6,
+.admin-panel p,
+.admin-panel span,
+.admin-panel li,
+.admin-panel label,
+.admin-panel small,
+.admin-panel strong,
+.admin-panel dt,
+.admin-panel dd {
+  color: #0A0E27;
+}
+
+/* Placeholder de la recherche étudiants */
+.admin-panel input::placeholder {
+  color: #94a3b8;
+}
+
+/* Boutons « Supprimer / Dépublier » restent avec leur couleur propre */
+.admin-panel button {
+  color: inherit;
+}
