@@ -7,9 +7,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/app/logo/logo.png'
 
-const supabase = createClient() // une seule instance, pas à chaque render
-
 export default function LoginPage() {
+  const supabase = createClient() // ✅ ICI (dans le composant), pas dehors
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -38,32 +37,21 @@ export default function LoginPage() {
       return
     }
 
-    // 2. Lecture du rôle — avec gestion d'erreur complète
+    // 2. Lecture du rôle
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('role')
       .eq('id', data.user.id)
-      .maybeSingle() // 👈 maybeSingle : ne plante pas si 0 ligne
+      .maybeSingle()
 
-    // 🔍 Logs de diagnostic (à retirer une fois le bug réglé)
-    console.log('DEBUG user id :', data.user.id)
-    console.log('DEBUG email   :', data.user.email)
-    console.log('DEBUG profile :', profile)
-    console.log('DEBUG erreur  :', profileError)
-
-    // 3. Si la lecture échoue, on ne redirige PAS en aveugle
     if (profileError) {
       setError('Lecture du profil impossible : ' + profileError.message)
       setLoading(false)
       return
     }
 
-    // 4. Redirection selon le rôle
+    // 3. Redirection selon le rôle
     const destination = profile?.role === 'admin' ? '/admin' : '/dashboard'
-    console.log('DEBUG destination :', destination)
-
-    // window.location au lieu de router.push : recharge complète,
-    // les cookies de session sont garantis présents côté serveur.
     window.location.href = destination
   }
 
@@ -79,10 +67,8 @@ export default function LoginPage() {
             backgroundSize: "600px 320px",
           }}
         />
-        {/* Halo violet à droite */}
         <div className="absolute -top-40 -right-40 w-[800px] h-[800px] rounded-full bg-[#7B2CBF]/30 blur-[140px]" />
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-[#9D4EDD]/20 blur-[120px]" />
-        {/* Lignes dorées déco */}
         <svg className="absolute top-0 right-1/3 h-full w-[400px] opacity-30" viewBox="0 0 400 800" fill="none">
           <path d="M200 0 Q250 400 400 800" stroke="#F5B942" strokeWidth="1" />
           <path d="M150 0 Q180 400 250 800" stroke="#F5B942" strokeWidth="0.5" />
@@ -91,7 +77,6 @@ export default function LoginPage() {
 
       {/* ═══════════ HEADER ═══════════ */}
       <header className="relative z-10 mx-auto max-w-[1500px] px-8 pt-8 flex items-start justify-between">
-        {/* Logo + marque */}
         <Link href="/" className="flex items-center gap-4">
           <div className="relative w-[60px] h-[60px] rounded-full border border-[#F5B942]/60 grid place-items-center">
             <Image src={logo} alt="David Piano Academy" height={40} className="h-10 w-auto" />
@@ -105,7 +90,6 @@ export default function LoginPage() {
           </div>
         </Link>
 
-        {/* Pas encore membre ? */}
         <div className="hidden sm:flex items-center gap-6 pt-2">
           <span className="text-[12px] tracking-[0.2em] text-white/60">PAS ENCORE MEMBRE ?</span>
           <Link
@@ -119,7 +103,6 @@ export default function LoginPage() {
 
       {/* ═══════════ CONTENU ═══════════ */}
       <div className="relative z-10 mx-auto max-w-[1500px] px-8 py-12 grid lg:grid-cols-[1fr_1.05fr] gap-12 items-center min-h-[calc(100vh-100px)]">
-        {/* ─── Colonne gauche : présentation ─── */}
         <div className="relative">
           <p className="text-[13px] font-semibold tracking-[4px] text-[#F5B942] mb-5">
             HEUREUX DE VOUS REVOIR,
@@ -133,7 +116,6 @@ export default function LoginPage() {
             Retrouvez vos cours, vos progressions et votre communauté musicale.
           </p>
 
-          {/* Liste features */}
           <div className="mt-10 space-y-5 max-w-[440px]">
             {[
               { n: "01", title: "Vos cours, partout", desc: "Reprenez là où vous vous étiez arrêté." },
@@ -152,12 +134,10 @@ export default function LoginPage() {
             ))}
           </div>
 
-          {/* Cercles dorés déco */}
           <div className="pointer-events-none absolute -left-20 top-20 w-[380px] h-[380px] rounded-full border border-[#F5B942]/30 hidden lg:block" />
           <div className="pointer-events-none absolute -left-10 top-32 w-[300px] h-[300px] rounded-full border border-[#F5B942]/15 hidden lg:block" />
         </div>
 
-        {/* ─── Colonne droite : carte formulaire ─── */}
         <div className="relative w-full max-w-[560px] mx-auto">
           <div className="rounded-3xl bg-gradient-to-b from-[#1A1440]/80 to-[#0F0A2E]/80 border border-white/10 shadow-2xl shadow-purple-900/40 backdrop-blur-md p-8 sm:p-10">
             <h2 className="font-serif text-[38px] leading-[1.1] text-white">
@@ -169,7 +149,6 @@ export default function LoginPage() {
               Connectez-vous pour accéder à votre espace
             </p>
 
-            {/* Message d'erreur */}
             {error && (
               <div className="mt-6 rounded-xl bg-red-500/15 border border-red-500/40 text-red-200 p-3 text-[13px]">
                 {error}
@@ -177,7 +156,6 @@ export default function LoginPage() {
             )}
 
             <form onSubmit={handleLogin} className="mt-7 space-y-5">
-              {/* Email */}
               <div>
                 <label className="block text-[11px] font-semibold tracking-[0.18em] text-[#F5B942] mb-2">
                   ADRESSE E-MAIL
@@ -192,7 +170,6 @@ export default function LoginPage() {
                 />
               </div>
 
-              {/* Mot de passe */}
               <div>
                 <label className="block text-[11px] font-semibold tracking-[0.18em] text-[#F5B942] mb-2">
                   MOT DE PASSE
@@ -217,7 +194,6 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Mot de passe oublié */}
               <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
@@ -233,7 +209,6 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* ═══════════ CLAVIER DE PIANO DÉCO ═══════════ */}
       <div className="relative z-10 mx-auto max-w-[1500px] px-8 pb-6">
         <div className="relative h-[70px] rounded-xl overflow-hidden border-t border-[#F5B942]/40 bg-[#0A0E27]">
           <div className="absolute inset-0 flex">
@@ -251,7 +226,6 @@ export default function LoginPage() {
   )
 }
 
-/* ─────────────────────────── Bouton ─────────────────────────── */
 function SubmitButton({ loading }: { loading: boolean }) {
   return (
     <button
@@ -265,7 +239,6 @@ function SubmitButton({ loading }: { loading: boolean }) {
   )
 }
 
-/* ─────────────────────────── Icône œil (ouvert) ─────────────────────────── */
 function EyeIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -275,7 +248,6 @@ function EyeIcon() {
   )
 }
 
-/* ─────────────────────────── Icône œil (barré) ─────────────────────────── */
 function EyeOffIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
