@@ -87,7 +87,7 @@ export default function LoginPage() {
             <p className="font-serif text-[22px] text-white">DAVID</p>
             <p className="text-[13px] tracking-[0.25em] text-[#F5B942]">PIANO ACADEMY</p>
             <p className="text-[10px] tracking-[0.2em] text-white/50 mt-0.5">
-              PARIS · ÉCOLE DE MUSIQUE
+              Online · ÉCOLE DE MUSIQUE
             </p>
           </div>
         </Link>
