@@ -7,10 +7,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/app/logo/logo.png'
 
-export const dynamic = 'force-dynamic'   // 👈 AJOUTÉ
-
 export default function LoginPage() {
-  const supabase = createClient() // ✅ ICI (dans le composant), pas dehors
+  const supabase = createClient() // ✅ dans le composant, pas dehors
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
