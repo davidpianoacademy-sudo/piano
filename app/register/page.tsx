@@ -36,24 +36,6 @@ export default function RegisterPage() {
       return
     }
 
-    if (data.user) {
-      // Créer le profil avec rôle étudiant
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          id: data.user.id,
-          email: email,
-          full_name: name,
-          role: 'student',
-        })
-
-      if (profileError) {
-        setError('Erreur lors de la création du profil')
-        setLoading(false)
-        return
-      }
-    }
-
     setMessage('Compte créé avec succès ! Vérifiez votre email pour confirmer.')
     setLoading(false)
   }
@@ -62,7 +44,7 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">Inscription</h1>
-        
+
         {error && (
           <div className="bg-red-100 text-red-600 p-3 rounded mb-4 text-sm">
             {error}
