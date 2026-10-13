@@ -11,6 +11,10 @@ const NAV = [
   { label: "FAQ", href: ROUTES.faq },
 ];
 
+// ✉️ Coordonnées de contact
+const EMAIL = "davidpianoacademy@gmail.com";
+const INSTAGRAM = "https://instagram.com/davidpianoacademy";
+
 const SOCIALS = [
   {
     name: "YouTube",
@@ -21,7 +25,7 @@ const SOCIALS = [
   },
   {
     name: "Instagram",
-    href: "https://instagram.com",
+    href: INSTAGRAM, // 👈 compte réel
     icon: (
       <>
         <rect x="3" y="3" width="18" height="18" rx="5" fill="none" strokeWidth="2" stroke="currentColor" />
@@ -51,7 +55,7 @@ export default function Footer() {
     <footer className="relative bg-[#0A0E27] text-white/70">
       <div className="mx-auto max-w-7xl px-6 py-10 grid md:grid-cols-3 items-center gap-8">
         {/* Logo */}
-        <Link href={ROUTES.home} className="flex items-center">
+        <Link href={ROUTES.accueil} className="flex items-center">
           <Image
             src={logo}
             alt="David Piano Academy"
@@ -77,7 +81,7 @@ export default function Footer() {
               href={s.href}
               aria-label={s.name}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex h-9 w-9 items-center justify-center rounded-full text-[#F5E6C8] hover:text-white hover:bg-white/10 transition"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -88,11 +92,49 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Séparateur + copyright */}
+      {/* ═══════════ CONTACT ═══════════ */}
       <div className="mx-auto max-w-7xl px-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-[14px]">
+
+          {/* Instagram */}
+          <a
+            href={INSTAGRAM}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 hover:text-[#E8B923] transition-colors"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+              strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+            <span className="tracking-[0.06em]">@davidpianoacademy</span>
+          </a>
+
+          {/* Séparateur */}
+          <span className="hidden sm:block h-4 w-px bg-white/15" />
+
+          {/* Email */}
+          <a
+            href={`mailto:${EMAIL}`}
+            className="flex items-center gap-2.5 hover:text-[#E8B923] transition-colors"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+              strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 6-10 7L2 6" />
+            </svg>
+            <span className="tracking-[0.06em]">{EMAIL}</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Séparateur + copyright */}
+      <div className="mx-auto max-w-7xl px-6 mt-8">
         <div className="h-px bg-gradient-to-r from-[#7C3AED] via-[#E8B923]/60 to-[#7C3AED] opacity-50" />
         <p className="text-center text-[13px] text-white/60 py-6">
-          © 2025 David Piano Academy. Tous droits réservés.
+          © {new Date().getFullYear()} David Piano Academy. Tous droits réservés.
         </p>
       </div>
 
@@ -103,18 +145,10 @@ export default function Footer() {
         fill="none"
         preserveAspectRatio="none"
       >
-        <path
-          d="M0,60 C180,10 360,80 540,40 C620,25 680,60 720,40"
-          stroke="#7C3AED"
-          strokeOpacity="0.55"
-          strokeWidth="2"
-        />
-        <path
-          d="M0,80 C180,30 360,100 540,60 C620,45 680,80 720,60"
-          stroke="#E8B923"
-          strokeOpacity="0.35"
-          strokeWidth="1.5"
-        />
+        <path d="M0,60 C180,10 360,80 540,40 C620,25 680,60 720,40"
+          stroke="#7C3AED" strokeOpacity="0.55" strokeWidth="2" />
+        <path d="M0,80 C180,30 360,100 540,60 C620,45 680,80 720,60"
+          stroke="#E8B923" strokeOpacity="0.35" strokeWidth="1.5" />
       </svg>
     </footer>
   );

@@ -3,14 +3,16 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#E8DFCF]/60 bg-[#FBF8F2]/80 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 py-4">
+        {/* Logo */}
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-[#0B1030]"
+          className="shrink-0 text-lg font-semibold tracking-tight text-[#0B1030]"
         >
           Piano<span className="text-[#A8873F]">.</span>
         </Link>
 
+        {/* Liens desktop */}
         <ul className="hidden items-center gap-8 text-sm text-[#4A4A4A] md:flex">
           <li>
             <Link href="#cours" className="transition-colors hover:text-[#0B1030]">
@@ -29,18 +31,21 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <div className="flex items-center gap-3">
+        {/* Boutons auth — visibles sur TOUS les écrans */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Link
             href="/login"
-            className="hidden text-sm font-medium text-[#0B1030] transition-colors hover:text-[#A8873F] sm:block"
+            className="whitespace-nowrap rounded-full border border-[#0B1030]/20 px-3 sm:px-5 py-2 text-[13px] sm:text-sm font-medium text-[#0B1030] transition-colors hover:border-[#0B1030] hover:text-[#A8873F]"
           >
-            Connexion
+            <span className="sm:hidden">Connexion</span>
+            <span className="hidden sm:inline">Connexion</span>
           </Link>
           <Link
             href="/signup"
-            className="rounded-full bg-[#0B1030] px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#1A2050]"
+            className="whitespace-nowrap rounded-full bg-[#0B1030] px-3 sm:px-5 py-2 text-[13px] sm:text-sm font-semibold text-white transition-colors hover:bg-[#1A2050]"
           >
-            Essai gratuit
+            <span className="sm:hidden">Essai</span>
+            <span className="hidden sm:inline">Essai gratuit</span>
           </Link>
         </div>
       </nav>
